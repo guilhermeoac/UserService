@@ -8,7 +8,6 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":random-org"))
     implementation(project(":input-boundary"))
     implementation(project(":output-boundary"))
     implementation(project(":web"))

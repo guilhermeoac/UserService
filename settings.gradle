@@ -5,7 +5,6 @@ include 'repository'
 include 'output-boundary'
 include 'web'
 include 'usecase'
-include 'random-org'
 include 'configuration'
 include 'entities'
 
