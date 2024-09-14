@@ -1,6 +1,6 @@
 package com.ntd.userservice.config;
 
-import com.ntd.userservice.exception.auth.UserService;
+import com.ntd.userservice.auth.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

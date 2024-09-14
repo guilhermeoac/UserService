@@ -1,7 +1,7 @@
 package com.ntd.userservice.controller;
 
-import com.ntd.userservice.exception.auth.AuthenticationService;
-import com.ntd.userservice.exception.auth.dto.SigninRequest;
+import com.ntd.userservice.auth.AuthenticationService;
+import com.ntd.userservice.auth.dto.SigninRequest;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;

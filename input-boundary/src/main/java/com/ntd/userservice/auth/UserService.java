@@ -1,4 +1,4 @@
-package com.ntd.userservice.exception.auth;
+package com.ntd.userservice.auth;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 

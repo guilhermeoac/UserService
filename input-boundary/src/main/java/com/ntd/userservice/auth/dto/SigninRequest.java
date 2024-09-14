@@ -1,4 +1,4 @@
-package com.ntd.userservice.exception.auth.dto;
+package com.ntd.userservice.auth.dto;
 
 public class SigninRequest {
     private String user;

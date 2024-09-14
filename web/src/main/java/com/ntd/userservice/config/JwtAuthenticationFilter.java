@@ -1,7 +1,7 @@
 package com.ntd.userservice.config;
 
-import com.ntd.userservice.exception.auth.JwtService;
-import com.ntd.userservice.exception.auth.UserService;
+import com.ntd.userservice.auth.JwtService;
+import com.ntd.userservice.auth.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,6 +32,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
             throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
+        final String requestUser = request.getHeader("username");
         final String jwt;
         final String userEmail;
         if (StringUtils.isEmpty(authHeader) || !StringUtils.startsWith(authHeader, "Bearer ")) {
@@ -40,6 +41,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
         jwt = authHeader.substring(7);
         userEmail = jwtService.extractUserName(jwt);
+        if (requestUser != null && !requestUser.equals(userEmail)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
         if (StringUtils.isNotEmpty(userEmail)
                 && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userService.userDetailsService()

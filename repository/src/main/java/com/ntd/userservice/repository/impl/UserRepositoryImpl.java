@@ -3,6 +3,7 @@ package com.ntd.userservice.repository.impl;
 import com.ntd.userservice.repository.BalanceRepository;
 import com.ntd.userservice.repository.UserRepository;
 import com.ntd.userservice.repository.dto.BalanceOutputDTO;
+import com.ntd.userservice.repository.dto.UserBalanceOutputDTO;
 import com.ntd.userservice.repository.dto.UserOutputDTO;
 import com.ntd.userservice.repository.interfaces.UserJpaRepository;
 import com.ntd.userservice.repository.model.UserEntity;
@@ -35,5 +36,10 @@ public class UserRepositoryImpl implements UserRepository {
 
         balanceRepository.save(new BalanceOutputDTO(null, new UserOutputDTO(user.getId(), null, null, null), new BigDecimal("100")));
 
+    }
+
+    @Override
+    public Optional<UserBalanceOutputDTO> findUserBalanceInfo(String username) {
+        return userJpaRepository.findUserBalanceInfo(username);
     }
 }

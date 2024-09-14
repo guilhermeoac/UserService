@@ -1,6 +1,5 @@
 package com.ntd.userservice.auth;
 
-import com.ntd.userservice.exception.auth.JwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

@@ -1,7 +1,7 @@
-package com.ntd.userservice.exception.auth;
+package com.ntd.userservice.auth;
 
 
-import com.ntd.userservice.exception.auth.dto.SigninRequest;
+import com.ntd.userservice.auth.dto.SigninRequest;
 
 public interface AuthenticationService {
     String signin(SigninRequest request);

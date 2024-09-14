@@ -1,9 +1,8 @@
 package com.ntd.userservice.auth;
 
+import com.ntd.userservice.auth.dto.Role;
+import com.ntd.userservice.auth.dto.User;
 import com.ntd.userservice.exception.ApplicationException;
-import com.ntd.userservice.exception.auth.UserService;
-import com.ntd.userservice.exception.auth.dto.Role;
-import com.ntd.userservice.exception.auth.dto.User;
 import com.ntd.userservice.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;

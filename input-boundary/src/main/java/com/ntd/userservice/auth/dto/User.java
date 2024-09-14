@@ -1,4 +1,4 @@
-package com.ntd.userservice.exception.auth.dto;
+package com.ntd.userservice.auth.dto;
 
 import java.util.Collection;
 import java.util.List;
