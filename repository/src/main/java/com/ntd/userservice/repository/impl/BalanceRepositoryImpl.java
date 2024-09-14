@@ -27,7 +27,7 @@ public class BalanceRepositoryImpl implements BalanceRepository {
 
     @Override
     public Optional<BalanceOutputDTO> findBalanceByUser(Long userId) {
-        return balanceJpaRepository.findBalanceEntityByUser_Id(userId).map(it -> new BalanceOutputDTO(it.getId(), new UserOutputDTO(it.getId(), null, null, null), it.getBalance()));
+        return balanceJpaRepository.findBalanceEntityByUser_Id(userId).map(it -> new BalanceOutputDTO(it.getId(), new UserOutputDTO(it.getUser().getId(), null, null, null), it.getBalance()));
     }
 
     @Override

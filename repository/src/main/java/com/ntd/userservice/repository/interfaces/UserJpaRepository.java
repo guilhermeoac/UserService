@@ -14,7 +14,7 @@ public interface UserJpaRepository extends JpaRepository<UserEntity, Long> {
 
     List<UserEntity> findUserEntityByUsername(String username);
 
-    @Query("select new com.ntd.userservice.repository.dto.UserBalanceOutputDTO(u.id, u.username, b.balance) " +
+    @Query("select new com.ntd.userservice.repository.dto.UserBalanceOutputDTO(u.id, u.username, b.balance, b.id) " +
             "from UserEntity u join BalanceEntity b on b.user = u " +
             "where u.username = :username")
     Optional<UserBalanceOutputDTO> findUserBalanceInfo(@Param("username")String username);

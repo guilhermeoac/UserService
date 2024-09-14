@@ -55,4 +55,7 @@ public class BalanceEntity {
         this.balance = balance;
         this.user = user;
     }
+
+    public BalanceEntity() {
+    }
 }
