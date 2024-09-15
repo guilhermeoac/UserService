@@ -1,6 +1,6 @@
 package com.ntd.userservice;
 
-import com.ntd.userservice.exception.ApplicationException;
+import com.ntd.userservice.exception.OutputException;
 import com.ntd.userservice.repository.BalanceRepository;
 import com.ntd.userservice.repository.UserRepository;
 import com.ntd.userservice.repository.dto.BalanceOutputDTO;
@@ -58,7 +58,7 @@ class BalanceUseCaseTest {
         String username = "testUser";
         BigDecimal value = BigDecimal.valueOf(-10);
 
-        ApplicationException exception = assertThrows(ApplicationException.class, () -> balanceUseCase.increaseBalanceValue(username, value));
+        OutputException exception = assertThrows(OutputException.class, () -> balanceUseCase.increaseBalanceValue(username, value));
 
         assertEquals("balance.value.invalid", exception.getCode());
         assertEquals("Operation value must be positive", exception.getMessage());
@@ -72,7 +72,7 @@ class BalanceUseCaseTest {
         BigDecimal value = BigDecimal.TEN;
         when(userRepository.findUserBalanceInfo(username)).thenReturn(Optional.empty());
 
-        ApplicationException exception = assertThrows(ApplicationException.class, () -> balanceUseCase.increaseBalanceValue(username, value));
+        OutputException exception = assertThrows(OutputException.class, () -> balanceUseCase.increaseBalanceValue(username, value));
 
         assertEquals("balance.not.found", exception.getCode());
         assertEquals("Balance not found", exception.getMessage());
@@ -99,7 +99,7 @@ class BalanceUseCaseTest {
         String username = "testUser";
         BigDecimal value = BigDecimal.valueOf(-10);
 
-        ApplicationException exception = assertThrows(ApplicationException.class, () -> balanceUseCase.decreaseBalanceValue(username, value));
+        OutputException exception = assertThrows(OutputException.class, () -> balanceUseCase.decreaseBalanceValue(username, value));
 
         assertEquals("balance.value.invalid", exception.getCode());
         assertEquals("Operation value must be positive", exception.getMessage());
@@ -113,7 +113,7 @@ class BalanceUseCaseTest {
         BigDecimal value = BigDecimal.TEN;
         when(userRepository.findUserBalanceInfo(username)).thenReturn(Optional.empty());
 
-        ApplicationException exception = assertThrows(ApplicationException.class, () -> balanceUseCase.decreaseBalanceValue(username, value));
+        OutputException exception = assertThrows(OutputException.class, () -> balanceUseCase.decreaseBalanceValue(username, value));
 
         assertEquals("balance.not.found", exception.getCode());
         assertEquals("Balance not found", exception.getMessage());
@@ -128,7 +128,7 @@ class BalanceUseCaseTest {
         UserBalanceOutputDTO userBalance = new UserBalanceOutputDTO(1L, "1", BigDecimal.valueOf(5), 1L);
         when(userRepository.findUserBalanceInfo(username)).thenReturn(Optional.of(userBalance));
 
-        ApplicationException exception = assertThrows(ApplicationException.class, () -> balanceUseCase.decreaseBalanceValue(username, value));
+        OutputException exception = assertThrows(OutputException.class, () -> balanceUseCase.decreaseBalanceValue(username, value));
 
         assertEquals("balance.not.available", exception.getCode());
         assertEquals("Account has no balance available", exception.getMessage());

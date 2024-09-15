@@ -14,6 +14,8 @@ dependencies {
     implementation(project(":usecase"))
     implementation(project(":repository"))
     implementation(project(":configuration"))
+    implementation(project(":operation-service"))
+    implementation(project(":record-service"))
 
     implementation("org.springframework.boot:spring-boot-starter-web:3.2.4")
     testImplementation("org.springframework.boot:spring-boot-starter-test:3.2.4")

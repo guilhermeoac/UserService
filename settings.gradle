@@ -7,4 +7,6 @@ include 'web'
 include 'usecase'
 include 'configuration'
 include 'entities'
+include 'operation-service'
+include 'record-service'
 

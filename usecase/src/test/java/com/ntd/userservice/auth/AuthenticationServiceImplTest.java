@@ -2,7 +2,7 @@ package com.ntd.userservice.auth;
 
 import com.ntd.userservice.auth.dto.SigninRequest;
 import com.ntd.userservice.auth.dto.User;
-import com.ntd.userservice.exception.ApplicationException;
+import com.ntd.userservice.exception.OutputException;
 import com.ntd.userservice.repository.UserRepository;
 import com.ntd.userservice.repository.dto.UserOutputDTO;
 import java.util.Optional;
@@ -72,7 +72,7 @@ class AuthenticationServiceImplTest {
         when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class))).thenReturn(null);
         when(userRepository.findUserByUsername("testUser")).thenReturn(Optional.empty());
 
-        ApplicationException exception = assertThrows(ApplicationException.class, () -> authenticationService.signin(request));
+        OutputException exception = assertThrows(OutputException.class, () -> authenticationService.signin(request));
 
         assertEquals("user.not.found", exception.getCode());
         assertEquals("User do not exist!", exception.getMessage());

@@ -1,6 +1,6 @@
 package com.ntd.userservice;
 
-import com.ntd.userservice.exception.ApplicationException;
+import com.ntd.userservice.exception.OutputException;
 import com.ntd.userservice.repository.BalanceRepository;
 import com.ntd.userservice.repository.UserRepository;
 import com.ntd.userservice.repository.dto.BalanceOutputDTO;
@@ -45,13 +45,13 @@ public class BalanceUseCase implements BalanceServiceInput {
 
     private void validadeFinalBalanceValue(BigDecimal newBalanceValue) {
         if (newBalanceValue.compareTo(BigDecimal.ZERO) < 0) {
-            throw new ApplicationException("balance.not.available", "Account has no balance available", HttpStatus.BAD_REQUEST);
+            throw new OutputException("balance.not.available", "Account has no balance available", HttpStatus.BAD_REQUEST);
         }
     }
 
     private void validateInputValue(BigDecimal value) {
         if (value.compareTo(BigDecimal.ZERO) < 0) {
-            throw new ApplicationException("balance.value.invalid", "Operation value must be positive", HttpStatus.BAD_REQUEST);
+            throw new OutputException("balance.value.invalid", "Operation value must be positive", HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -80,7 +80,7 @@ public class BalanceUseCase implements BalanceServiceInput {
     private UserBalanceOutputDTO getUserBalanceOutputDTO(String username) {
         var userBalance = userRepository.findUserBalanceInfo(username);
 
-        if (userBalance.isEmpty()) throw new ApplicationException("balance.not.found", "Balance not found", HttpStatus.BAD_REQUEST);
+        if (userBalance.isEmpty()) throw new OutputException("balance.not.found", "Balance not found", HttpStatus.BAD_REQUEST);
         return userBalance.get();
     }
 }
