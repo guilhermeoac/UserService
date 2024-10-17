@@ -31,7 +31,7 @@ class BalanceHistoryRepositoryImplTest {
 
     @Test
     void testSave() {
-        BalanceOutputDTO balanceOutputDTO = new BalanceOutputDTO(1L, null, BigDecimal.TEN);
+        BalanceOutputDTO balanceOutputDTO = new BalanceOutputDTO(1L, null, BigDecimal.TEN, 1L);
         BalanceHistoryOutputDTO dto = new BalanceHistoryOutputDTO(1L, balanceOutputDTO, BigDecimal.ONE, BigDecimal.TEN, null);
 
         balanceHistoryRepository.save(dto);

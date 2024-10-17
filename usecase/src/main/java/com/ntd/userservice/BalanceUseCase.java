@@ -11,6 +11,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class BalanceUseCase implements BalanceServiceInput {
@@ -56,6 +57,7 @@ public class BalanceUseCase implements BalanceServiceInput {
     }
 
     @Override
+    @Transactional
     public void decreaseBalanceValue(String username, BigDecimal value) {
         try {
             validateInputValue(value);
@@ -74,7 +76,7 @@ public class BalanceUseCase implements BalanceServiceInput {
     }
 
     private void saveBalance(UserBalanceOutputDTO userBalance, BigDecimal newBalanceValue) {
-        balanceRepository.save(new BalanceOutputDTO(userBalance.balanceId(), new UserOutputDTO(userBalance.userId(), null, null, null), newBalanceValue));
+        balanceRepository.save(new BalanceOutputDTO(userBalance.balanceId(), new UserOutputDTO(userBalance.userId(), null, null, null), newBalanceValue, userBalance.version()), userBalance.balance());
     }
 
     private UserBalanceOutputDTO getUserBalanceOutputDTO(String username) {

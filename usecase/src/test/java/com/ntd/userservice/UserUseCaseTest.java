@@ -34,7 +34,7 @@ class UserUseCaseTest {
     @Test
     void testFindUserBalanceInfo_Success() {
         String username = "testUser";
-        UserBalanceOutputDTO userBalanceOutputDTO = new UserBalanceOutputDTO(1L, username, BigDecimal.TEN, 1L);
+        UserBalanceOutputDTO userBalanceOutputDTO = new UserBalanceOutputDTO(1L, username, BigDecimal.TEN, 1L, 1L);
         when(userRepository.findUserBalanceInfo(username)).thenReturn(Optional.of(userBalanceOutputDTO));
 
         Optional<UserBalanceInputDTO> result = userUseCase.findUserBalanceInfo(username);

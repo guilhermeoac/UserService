@@ -11,6 +11,7 @@ repositories {
 }
 dependencies {
     implementation(project(mapOf("path" to ":input-boundary")))
+    implementation(project(mapOf("path" to ":configuration")))
     implementation("org.springframework.boot:spring-boot-starter-web:3.2.4")
     testImplementation("org.springframework.boot:spring-boot-starter-test:3.2.4")
     implementation("org.springframework.data:spring-data-commons:3.2.4")

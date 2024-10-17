@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import java.math.BigDecimal;
 
 @Entity
@@ -22,9 +23,23 @@ public class BalanceEntity {
     @Column(nullable = false)
     private BigDecimal balance;
 
+    @Version()
+    private Long version;
+
     @OneToOne(targetEntity = UserEntity.class, fetch = FetchType.LAZY )
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public BalanceEntity(Long id, BigDecimal balance, Long version, UserEntity user) {
+        this.id = id;
+        this.balance = balance;
+        this.version = version;
+        this.user = user;
+    }
 
     public Long getId() {
         return id;
@@ -47,12 +62,6 @@ public class BalanceEntity {
     }
 
     public void setUser(UserEntity user) {
-        this.user = user;
-    }
-
-    public BalanceEntity(Long id, BigDecimal balance, UserEntity user) {
-        this.id = id;
-        this.balance = balance;
         this.user = user;
     }
 

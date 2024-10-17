@@ -43,7 +43,7 @@ class BalanceRepositoryImplTest {
     @Test
     void testFindBalanceByUser() {
         Long userId = 1L;
-        BalanceEntity balanceEntity = new BalanceEntity(1L, BigDecimal.TEN, new UserEntity(userId, null, null, null));
+        BalanceEntity balanceEntity = new BalanceEntity(1L, BigDecimal.TEN, 1L, new UserEntity(userId, null, null, null));
         when(balanceJpaRepository.findBalanceEntityByUser_Id(userId)).thenReturn(Optional.of(balanceEntity));
 
         Optional<BalanceOutputDTO> result = balanceRepository.findBalanceByUser(userId);
@@ -66,11 +66,11 @@ class BalanceRepositoryImplTest {
 
     @Test
     void testSave_NewBalance() {
-        BalanceOutputDTO dto = new BalanceOutputDTO(1L, new UserOutputDTO(1L, null, null, null), BigDecimal.TEN);
-        BalanceEntity balanceEntity = new BalanceEntity(1L, BigDecimal.TEN, new UserEntity(1L, null, null, null));
+        BalanceOutputDTO dto = new BalanceOutputDTO(1L, new UserOutputDTO(1L, null, null, null), BigDecimal.TEN, 1L);
+        BalanceEntity balanceEntity = new BalanceEntity(1L, BigDecimal.TEN, 1L, new UserEntity(1L, null, null, null));
         when(balanceJpaRepository.save(any(BalanceEntity.class))).thenReturn(balanceEntity);
 
-        balanceRepository.save(dto);
+        balanceRepository.save(dto, BigDecimal.ZERO);
 
         ArgumentCaptor<BalanceEntity> balanceCaptor = ArgumentCaptor.forClass(BalanceEntity.class);
         ArgumentCaptor<BalanceHistoryOutputDTO> historyCaptor = ArgumentCaptor.forClass(BalanceHistoryOutputDTO.class);
@@ -85,12 +85,12 @@ class BalanceRepositoryImplTest {
 
     @Test
     void testSave_UpdateBalance() {
-        BalanceOutputDTO dto = new BalanceOutputDTO(1L, new UserOutputDTO(1L, null, null, null), BigDecimal.TEN);
-        BalanceEntity existingBalanceEntity = new BalanceEntity(1L, BigDecimal.ONE, new UserEntity(1L, null, null, null));
+        BalanceOutputDTO dto = new BalanceOutputDTO(1L, new UserOutputDTO(1L, null, null, null), BigDecimal.TEN, 1L);
+        BalanceEntity existingBalanceEntity = new BalanceEntity(1L, BigDecimal.ONE, 1L, new UserEntity(1L, null, null, null));
         when(balanceJpaRepository.findBalanceEntityByUser_Id(1L)).thenReturn(Optional.of(existingBalanceEntity));
         when(balanceJpaRepository.save(any(BalanceEntity.class))).thenReturn(existingBalanceEntity);
 
-        balanceRepository.save(dto);
+        balanceRepository.save(dto, BigDecimal.ONE);
 
         ArgumentCaptor<BalanceEntity> balanceCaptor = ArgumentCaptor.forClass(BalanceEntity.class);
         ArgumentCaptor<BalanceHistoryOutputDTO> historyCaptor = ArgumentCaptor.forClass(BalanceHistoryOutputDTO.class);

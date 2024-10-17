@@ -27,18 +27,13 @@ public class BalanceRepositoryImpl implements BalanceRepository {
 
     @Override
     public Optional<BalanceOutputDTO> findBalanceByUser(Long userId) {
-        return balanceJpaRepository.findBalanceEntityByUser_Id(userId).map(it -> new BalanceOutputDTO(it.getId(), new UserOutputDTO(it.getUser().getId(), null, null, null), it.getBalance()));
+        return balanceJpaRepository.findBalanceEntityByUser_Id(userId).map(it -> new BalanceOutputDTO(it.getId(), new UserOutputDTO(it.getUser().getId(), null, null, null), it.getBalance(), it.getVersion()));
     }
 
     @Override
     @Transactional
-    public void save(BalanceOutputDTO dto) {
-        var oldBalance = findBalanceByUser(dto.user().id());
-        BigDecimal oldBalanceValue = BigDecimal.ZERO;
-        if (oldBalance.isPresent()) {
-            oldBalanceValue = oldBalance.get().balance();
-        }
-        var balanceEntity = balanceJpaRepository.save(new BalanceEntity(dto.id(), dto.balance(), new UserEntity(dto.user().id(), null, null, null)));
-        balanceHistoryRepository.save(new BalanceHistoryOutputDTO(null, new BalanceOutputDTO(balanceEntity.getId(), null, null), oldBalanceValue, dto.balance(), null));
+    public void save(BalanceOutputDTO dto, BigDecimal oldBalanceValue) {
+        var balanceEntity = balanceJpaRepository.save(new BalanceEntity(dto.id(), dto.balance(), dto.version(), new UserEntity(dto.user().id(), null, null, null)));
+        balanceHistoryRepository.save(new BalanceHistoryOutputDTO(null, new BalanceOutputDTO(balanceEntity.getId(), null, null, balanceEntity.getVersion()), oldBalanceValue, dto.balance(), null));
     }
 }

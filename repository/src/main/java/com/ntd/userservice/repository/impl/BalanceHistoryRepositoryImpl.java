@@ -18,6 +18,6 @@ public class BalanceHistoryRepositoryImpl implements BalanceHistoryRepository {
 
     @Override
     public void save(BalanceHistoryOutputDTO dto) {
-        balanceHistoryJpaRepository.save(new BalanceEntityHistory(dto.id(), dto.oldBalance(), dto.newBalance(), new BalanceEntity(dto.balance().id(),null, null), null));
+        balanceHistoryJpaRepository.save(new BalanceEntityHistory(dto.id(), dto.oldBalance(), dto.newBalance(), new BalanceEntity(dto.balance().id(),null, dto.balance().version(), null), null));
     }
 }

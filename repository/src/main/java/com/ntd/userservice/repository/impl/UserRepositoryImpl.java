@@ -34,7 +34,7 @@ public class UserRepositoryImpl implements UserRepository {
 
         var user = userJpaRepository.save(new UserEntity(null, username, password, "DEFAULT"));
 
-        balanceRepository.save(new BalanceOutputDTO(null, new UserOutputDTO(user.getId(), null, null, null), new BigDecimal("100")));
+        balanceRepository.save(new BalanceOutputDTO(null, new UserOutputDTO(user.getId(), null, null, null), new BigDecimal("100"), null), BigDecimal.ZERO);
 
     }
 

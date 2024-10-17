@@ -76,7 +76,7 @@ class UserRepositoryImplTest {
         ArgumentCaptor<BalanceOutputDTO> balanceCaptor = ArgumentCaptor.forClass(BalanceOutputDTO.class);
 
         verify(userJpaRepository, times(1)).save(userCaptor.capture());
-        verify(balanceRepository, times(1)).save(balanceCaptor.capture());
+        verify(balanceRepository, times(1)).save(balanceCaptor.capture(), any());
 
         assertEquals(username, userCaptor.getValue().getUsername());
         assertEquals(new BigDecimal("100"), balanceCaptor.getValue().balance());
