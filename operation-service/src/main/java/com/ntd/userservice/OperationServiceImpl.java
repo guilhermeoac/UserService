@@ -42,7 +42,7 @@ public class OperationServiceImpl implements OperationService {
 
 
             return Objects.requireNonNull(restTemplate.exchange(
-                    "http://localhost:8081/api/v1/operation/execute",
+                    "https://operationservice.onrender.com:8080/api/v1/operation/execute",
                     HttpMethod.POST,
                     new HttpEntity<>(params, headers),
                     OperationResultDTO.class).getBody());
@@ -68,7 +68,7 @@ public class OperationServiceImpl implements OperationService {
 
 
             return Objects.requireNonNull(restTemplate.exchange(
-                    "http://localhost:8081/api/v1/operation/type",
+                    "https://operationservice.onrender.com:8080/api/v1/operation/type",
                     HttpMethod.GET,
                     new HttpEntity<>(null, headers),
                     OperationDTO.class).getBody());
@@ -83,7 +83,7 @@ public class OperationServiceImpl implements OperationService {
         try {
 
             return Objects.requireNonNull(restTemplate.exchange(
-                    "http://localhost:8081/api/v1/operation",
+                    "https://operationservice.onrender.com:8080/api/v1/operation",
                     HttpMethod.GET,
                     null,
                     new ParameterizedTypeReference<List<OperationDTO>>(){}).getBody());
