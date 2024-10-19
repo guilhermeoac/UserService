@@ -2,6 +2,7 @@ package com.ntd.userservice.auth;
 
 import com.ntd.userservice.auth.dto.SigninRequest;
 import com.ntd.userservice.auth.dto.User;
+import com.ntd.userservice.exception.ApplicationException;
 import com.ntd.userservice.exception.OutputException;
 import com.ntd.userservice.repository.UserRepository;
 import org.springframework.http.HttpStatus;
@@ -34,9 +35,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             var userOutputDTO = userRepository.findUserByUsername(request.getUser());
             if (userOutputDTO.isEmpty()) throw new OutputException("user.not.found", "User do not exist!", HttpStatus.BAD_REQUEST);
             return jwtService.generateToken(new User(userOutputDTO.get().id(), userOutputDTO.get().username(), userOutputDTO.get().password()));
-        } catch(Exception e) {
-
-            throw e;
+        } catch (Exception e) {
+            throw new ApplicationException("invalid.password", "User or password invalid!", HttpStatus.FORBIDDEN);
         }
     }
 
