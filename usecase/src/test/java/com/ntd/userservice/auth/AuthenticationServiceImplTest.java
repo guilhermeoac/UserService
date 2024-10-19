@@ -2,6 +2,7 @@ package com.ntd.userservice.auth;
 
 import com.ntd.userservice.auth.dto.SigninRequest;
 import com.ntd.userservice.auth.dto.User;
+import com.ntd.userservice.exception.ApplicationException;
 import com.ntd.userservice.exception.OutputException;
 import com.ntd.userservice.repository.UserRepository;
 import com.ntd.userservice.repository.dto.UserOutputDTO;
@@ -72,11 +73,11 @@ class AuthenticationServiceImplTest {
         when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class))).thenReturn(null);
         when(userRepository.findUserByUsername("testUser")).thenReturn(Optional.empty());
 
-        OutputException exception = assertThrows(OutputException.class, () -> authenticationService.signin(request));
+        ApplicationException exception = assertThrows(ApplicationException.class, () -> authenticationService.signin(request));
 
-        assertEquals("user.not.found", exception.getCode());
-        assertEquals("User do not exist!", exception.getMessage());
-        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
+        assertEquals("invalid.password", exception.getCode());
+        assertEquals("User or password invalid!", exception.getMessage());
+        assertEquals(HttpStatus.FORBIDDEN, exception.getStatus());
         verify(authenticationManager, times(1)).authenticate(any(UsernamePasswordAuthenticationToken.class));
         verify(userRepository, times(1)).findUserByUsername("testUser");
         verify(jwtService, never()).generateToken(any(User.class));
@@ -87,9 +88,9 @@ class AuthenticationServiceImplTest {
         SigninRequest request = new SigninRequest("testUser", "testPassword");
         when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class))).thenThrow(new RuntimeException("Authentication failed"));
 
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> authenticationService.signin(request));
+        ApplicationException exception = assertThrows(ApplicationException.class, () -> authenticationService.signin(request));
 
-        assertEquals("Authentication failed", exception.getMessage());
+        assertEquals("User or password invalid!", exception.getMessage());
         verify(authenticationManager, times(1)).authenticate(any(UsernamePasswordAuthenticationToken.class));
         verify(userRepository, never()).findUserByUsername(anyString());
         verify(jwtService, never()).generateToken(any(User.class));
