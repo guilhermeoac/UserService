@@ -9,5 +9,5 @@ public interface OperationService {
 
     OperationResultDTO executeOperation(Long userId, String operationType, OperationParamsDTO params);
     OperationDTO operationDetails(String operationType);
-    List<OperationDTO> getAllOperations(String operationType);
+    List<OperationDTO> getAllOperations();
 }

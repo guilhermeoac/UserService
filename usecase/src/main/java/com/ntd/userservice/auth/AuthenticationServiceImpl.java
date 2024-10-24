@@ -36,7 +36,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             if (userOutputDTO.isEmpty()) throw new OutputException("user.not.found", "User do not exist!", HttpStatus.BAD_REQUEST);
             return jwtService.generateToken(new User(userOutputDTO.get().id(), userOutputDTO.get().username(), userOutputDTO.get().password()));
         } catch (Exception e) {
-            throw new ApplicationException("invalid.password", "User or password invalid!", HttpStatus.FORBIDDEN);
+            throw new ApplicationException("invalid.password", "User or password invalid!", HttpStatus.BAD_REQUEST);
         }
     }
 

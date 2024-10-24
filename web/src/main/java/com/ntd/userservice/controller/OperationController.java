@@ -1,6 +1,7 @@
 package com.ntd.userservice.controller;
 
 import com.ntd.userservice.OperationServiceInput;
+import com.ntd.userservice.dto.OperationInputDTO;
 import com.ntd.userservice.dto.OperationParamsInputDTO;
 import com.ntd.userservice.dto.OperationResultInputDTO;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
@@ -8,7 +9,9 @@ import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import java.util.List;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -37,6 +40,13 @@ public class OperationController {
             @RequestBody OperationParamsInputDTO body
     ) {
         return ResponseEntity.ok(operationServiceInput.executeOperation(username, body, type));
+    }
+
+
+    @GetMapping()
+    public ResponseEntity<List<OperationInputDTO>> getAllOperations(
+    ) {
+        return ResponseEntity.ok(operationServiceInput.getAllOperations());
     }
 }
 

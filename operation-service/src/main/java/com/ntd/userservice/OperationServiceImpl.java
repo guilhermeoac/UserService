@@ -79,7 +79,7 @@ public class OperationServiceImpl implements OperationService {
     }
 
     @Override
-    public List<OperationDTO> getAllOperations(String operationType) {
+    public List<OperationDTO> getAllOperations() {
         try {
 
             return Objects.requireNonNull(restTemplate.exchange(

@@ -1,5 +1,6 @@
 package com.ntd.userservice;
 
+import com.ntd.userservice.dto.OperationInputDTO;
 import com.ntd.userservice.dto.OperationParamsInputDTO;
 import com.ntd.userservice.dto.OperationResultInputDTO;
 import com.ntd.userservice.exception.ApplicationException;
@@ -8,6 +9,8 @@ import com.ntd.userservice.operationservice.OperationService;
 import com.ntd.userservice.operationservice.dto.OperationParamsDTO;
 import com.ntd.userservice.recordservice.RecordService;
 import com.ntd.userservice.recordservice.dto.RecordOutputDTO;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
@@ -62,6 +65,11 @@ public class OperationUseCase implements OperationServiceInput {
             logger.error("OperationUseCase.executeOperation, message:" + e.getMessage(), e);
             throw e;
         }
+    }
+
+    @Override
+    public List<OperationInputDTO> getAllOperations() {
+        return operationService.getAllOperations().stream().map((it) -> new OperationInputDTO(it.type(), it.cost())).collect(Collectors.toList());
     }
 }
 

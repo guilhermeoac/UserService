@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -48,8 +49,8 @@ public class RecordController {
                 endDate != null ? LocalDate.parse(endDate, DateTimeFormatter.ISO_LOCAL_DATE).atTime(23, 59, 59) : null,
                 pageNumber != null ? pageNumber : 0,
                 pageSize != null ? pageSize : 10,
-                sortField,
-                sortDirection)));
+                sortField != null ? sortField : "date",
+                sortDirection != null ? sortDirection : Sort.Direction.DESC.name())));
     }
 }
 
