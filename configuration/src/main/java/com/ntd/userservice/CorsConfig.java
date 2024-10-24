@@ -16,7 +16,7 @@ class CorsConfig {
         var config = new CorsConfiguration();
 
         // Allow all origins, methods, and headers
-        config.setAllowedOrigins(List.of("*", "http://localhost:3000/"));
+        config.setAllowedOrigins(List.of("*"));
         config.setAllowedMethods(List.of("*"));
         config.setAllowedHeaders(List.of("*"));
 
