@@ -84,7 +84,7 @@ public class RecordServiceImpl implements RecordService {
     @Override
     public void delete(Long id) {
         try {
-            var uri = UriComponentsBuilder.fromUriString("http://recordservice:8080/api/v1/record");
+            var uri = UriComponentsBuilder.fromUriString("https://recordservice-c0d4.onrender.com/api/v1/record");
             uri.queryParam("id", id.toString());
 
             var headers = new HttpHeaders();
