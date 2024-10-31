@@ -77,7 +77,7 @@ class AuthenticationServiceImplTest {
 
         assertEquals("invalid.password", exception.getCode());
         assertEquals("User or password invalid!", exception.getMessage());
-        assertEquals(HttpStatus.FORBIDDEN, exception.getStatus());
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
         verify(authenticationManager, times(1)).authenticate(any(UsernamePasswordAuthenticationToken.class));
         verify(userRepository, times(1)).findUserByUsername("testUser");
         verify(jwtService, never()).generateToken(any(User.class));

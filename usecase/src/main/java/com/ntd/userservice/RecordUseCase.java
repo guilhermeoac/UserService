@@ -19,15 +19,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class RecordUseCase implements RecordServiceInput {
     protected final Log logger = LogFactory.getLog(this.getClass());
-
-    private final BalanceServiceInput balanceServiceInput;
-    private final OperationService operationService;
     private final UserServiceInput userServiceInput;
     private final RecordService recordService;
 
-    public RecordUseCase(BalanceServiceInput balanceServiceInput, OperationService operationService, UserServiceInput userServiceInput, RecordService recordService) {
-        this.balanceServiceInput = balanceServiceInput;
-        this.operationService = operationService;
+    public RecordUseCase(UserServiceInput userServiceInput, RecordService recordService) {
         this.userServiceInput = userServiceInput;
         this.recordService = recordService;
     }
@@ -54,12 +49,21 @@ public class RecordUseCase implements RecordServiceInput {
                             ));
             return new PageImpl<>(response.getContent().stream().map(it -> new RecordInputDTO(it.id(), it.operationType(), it.amount(), it.cost(), it.operationResult(), it.date())).collect(Collectors.toList()), response.getPageable(), response.getTotalElements());
 
-            //return response.map(it -> new RecordInputDTO(it.id(), it.operationType(), it.amount(), it.cost(), it.operationResult(), it.date()));
         } catch (OutputException e) {
-            logger.error("OperationUseCase.executeOperation, message:" + e.getMessage(), e);
+            logger.error("RecordUseCase.findRecordsPageable, message:" + e.getMessage(), e);
             throw new ApplicationException(e.getCode(), e.getMessage(), e.getStatus());
         } catch (Exception e) {
-            logger.error("OperationUseCase.executeOperation, message:" + e.getMessage(), e);
+            logger.error("RecordUseCase.findRecordsPageable, message:" + e.getMessage(), e);
+            throw e;
+        }
+    }
+
+    @Override
+    public void deleteRecord(Long id) {
+        try {
+            recordService.delete(id);
+        } catch (Exception e) {
+            logger.error("RecordUseCase.deleteRecord, message:" + e.getMessage(), e);
             throw e;
         }
     }

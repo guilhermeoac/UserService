@@ -10,6 +10,7 @@ public interface RecordService {
     Page<RecordResponseOutputDTO> findRecordsPageable(Long userId, RecordFilterOutputDTO dto);
 
     void save(RecordOutputDTO dto);
+    void delete(Long id);
 
 }
 

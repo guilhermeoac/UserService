@@ -80,6 +80,25 @@ public class RecordServiceImpl implements RecordService {
             throw e;
         }
     }
+
+    @Override
+    public void delete(Long id) {
+        try {
+            var uri = UriComponentsBuilder.fromUriString("http://recordservice:8080/api/v1/record");
+            uri.queryParam("id", id.toString());
+
+            var headers = new HttpHeaders();
+
+            restTemplate.exchange(
+                    uri.toUriString(),
+                    HttpMethod.DELETE,
+                    new HttpEntity<>(null, headers),
+                    String.class);
+        } catch( Exception e) {
+            logger.error("RecordServiceImpl.delete, message: " + e.getMessage(), e);
+            throw e;
+        }
+    }
 }
 
 

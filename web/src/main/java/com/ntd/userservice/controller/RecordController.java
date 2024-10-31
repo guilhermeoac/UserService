@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,6 +52,13 @@ public class RecordController {
                 pageSize != null ? pageSize : 10,
                 sortField != null ? sortField : "date",
                 sortDirection != null ? sortDirection : Sort.Direction.DESC.name())));
+    }
+    @DeleteMapping
+    public ResponseEntity<Page<RecordInputDTO>> deleteRecord(
+            @RequestParam(value = "id", required = false) Long id
+    ) throws Exception {
+        recordServiceInput.deleteRecord(id);
+        return ResponseEntity.ok().build();
     }
 }
 

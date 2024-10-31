@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 public interface RecordServiceInput {
 
     Page<RecordInputDTO> findRecordsPageable(String username, RecordFilterInputDTO dto);
+    void deleteRecord(Long id);
 
 
 }
