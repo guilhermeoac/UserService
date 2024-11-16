@@ -34,7 +34,7 @@ public class RecordServiceImpl implements RecordService {
     @Override
     public Page<RecordResponseOutputDTO> findRecordsPageable(Long userId, RecordFilterOutputDTO dto) {
         try {
-            var uri = UriComponentsBuilder.fromUriString("http://recordservice:8080/api/v1/record");
+            var uri = UriComponentsBuilder.fromUriString("https://recordservice-c0d4.onrender.com/api/v1/record");
             uri.queryParamIfPresent("operationType", Optional.ofNullable(dto.operationType()));
             uri.queryParamIfPresent("amount", Optional.ofNullable(dto.amount()));
             uri.queryParamIfPresent("cost", Optional.ofNullable(dto.cost()));
@@ -65,7 +65,7 @@ public class RecordServiceImpl implements RecordService {
     @Override
     public void save(RecordOutputDTO dto) {
         try {
-            var uri = UriComponentsBuilder.fromUriString("http://recordservice:8080/api/v1/record");
+            var uri = UriComponentsBuilder.fromUriString("https://recordservice-c0d4.onrender.com/api/v1/record");
 
             var headers = new HttpHeaders();
             headers.add("userId", dto.userId().toString());
@@ -84,7 +84,7 @@ public class RecordServiceImpl implements RecordService {
     @Override
     public void delete(Long id) {
         try {
-            var uri = UriComponentsBuilder.fromUriString("http://recordservice:8080/api/v1/record");
+            var uri = UriComponentsBuilder.fromUriString("https://recordservice-c0d4.onrender.com/api/v1/record");
             uri.queryParam("id", id.toString());
 
             var headers = new HttpHeaders();
