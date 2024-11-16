@@ -47,7 +47,7 @@ public class RecordUseCase implements RecordServiceInput {
                             dto.sortField(),
                             dto.sortDirection()
                             ));
-            return new PageImpl<>(response.getContent().stream().map(it -> new RecordInputDTO(it.id(), it.operationType(), it.amount(), it.cost(), it.operationResult(), it.date())).collect(Collectors.toList()), response.getPageable(), response.getTotalElements());
+            return new PageImpl<>(response.getContent().stream().map(it -> new RecordInputDTO(it.id(), it.operationType(), it.amount(), it.cost(), it.operationResult(), it.date(), it.active())).collect(Collectors.toList()), response.getPageable(), response.getTotalElements());
 
         } catch (OutputException e) {
             logger.error("RecordUseCase.findRecordsPageable, message:" + e.getMessage(), e);

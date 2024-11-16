@@ -9,7 +9,8 @@ public record RecordResponseOutputDTO(
         BigDecimal amount,
         BigDecimal cost,
         String operationResult,
-        LocalDateTime date
+        LocalDateTime date,
+        Boolean active
 ) {
 
 }
